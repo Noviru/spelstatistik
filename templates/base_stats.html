@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Username</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel ="stylesheet" type = "text/css" href = "{{ url_for('static', filename='css/base_stats.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="{{ url_for('static', filename = 'js/ajax.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/chart.js') }}"></script>
+</head>
+
+<body>
+    <header>
+        <nav class = "navbar navbar-custom">
+            <a class ="navbar-brand brandProfile-custom" href = "{{url_for('myProfile')}}">My profile</a>
+            <a class ="navbar-brand logout-custom" href = "{{url_for('logout')}}">Logout</a>
+                <div class="md-form mt-0">
+                  <form method="post" id="myForm" action = "{{url_for('searchUser')}}">
+                    <input type="search" name = "form1" id="form1" class="form-control" onkeyup="handle(event)" placeholder="Type username" aria-label="Search" />
+                  </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class ="container-fluid">
+        <div class ="row">
+            <div class = "col-4 containerUsername-custom">
+                    <div class = "image">
+                      {%if rankInfo%}
+                        {%if rankInfo[0]['tier'] == 'DIAMOND'%}
+                          <img src ="{{ url_for('static', filename='img/dimond.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+                        {%if rankInfo[0]['tier'] == 'GOLD'%}
+                          <img src ="{{ url_for('static', filename='img/gold.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'IRON'%}
+                          <img src ="{{ url_for('static', filename='img/iron.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'BRONZE'%}
+                          <img src ="{{ url_for('static', filename='img/bronze.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'SILVER'%}
+                          <img src ="{{ url_for('static', filename='img/silver.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'PLATINUM'%}
+                          <img src ="{{ url_for('static', filename='img/plat.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'MASTER'%}
+                          <img src ="{{ url_for('static', filename='img/master.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'GRANDMASTER'%}
+                          <img src ="{{ url_for('static', filename='img/grandmaster.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+
+                        {%if rankInfo[0]['tier'] == 'CHALLENGER'%}
+                          <img src ="{{ url_for('static', filename='img/challenger.png') }}" width = "200" height = "200" class = "img">
+                        {%endif%}
+                        <p class= "p-custom" ><strong>{{rankInfo[0]['tier']}} {{rankInfo[0]['rank']}}: winrate {{winrate}}% (W:{{rankInfo[0]['wins']}} L:{{rankInfo[0]['losses']}})</strong></p>
+                      {%else%}
+                        <img src ="{{ url_for('static', filename='img/unranked.png') }}" width = "200" height = "200" class = "img">
+                      {%endif%}
+                       <p class= "p-custom" ><strong>Name: {{summoner}}</strong></p>
+
+                    </div>
+
+            </div>
+
+            <div class = "col-8 containerLatestGames-custom">
+              <form action = "{{url_for('update')}}" method = "POST">
+                <center><input type="submit" value = "Update" class="btn btn-outline-primary btn-lg btn-custom"></input></center>
+              </form>
+              <div id="piechart" class = "chart">
+              </div>
+
+              <h3 class = "display-4 avgstats">Winrate latestgames </h3>
+             </div>
+        </div>
+       <div class = "row">
+            <div class = "col-4 colWinrate-custom">
+              <center><h3 class = "display-5">Champion Stats</h3></center>
+                {%for c in champStats%}
+                  <div class ="row">
+                    <div class = "col championStats">
+                      <img src = "static/img/champion/{{c[0]}}.png" class = "d-flex justify-content-between champStats-img">
+                      <h3 class = "display-5 custom-display">{{c[2]}}/{{c[3]}}/{{c[4]}} Winrate: </h3>
+                    </div>
+                  </div>
+                {%endfor%}
+            </div>
+            <div class = "col-8 colStats-custom">
+              {%for s in stats%}
+                {% if s[7] == 1%}
+                  <div class="row">
+                    <div class="col colMatch-customW h3-customW" style="background-color: blue;">
+                      <img src = "static/img/champion/{{s[6]}}.png", height = "100", width = "100" class = "champImgW">
+                      <h3 class = "display-4 custom-display">{{s[3]}}/{{s[4]}}/{{s[5]}}</h3>
+                      <button onclick="myFunction( {{loop.index}} )" class="btn btn-outline-primary btn-lg test">Stats</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col colMatch-customW h3-customW moreStats" id="moreStats_{{loop.index}}">
+                     <div class ="matchStyle">
+                      <div class="firstTeam">
+                    {%for person in totalMatchStats[loop.index-1][:5]%}
+                      <div class="col firstFive"><h5>{{person[1]}} {{person[3]}}/{{person[4]}}/{{person[5]}}</h5></div>
+                    {%endfor%}
+                    </div>
+                    <div class="secTeam">
+                    {%for person in totalMatchStats[loop.index-1][5:]%}
+                      <div class="col firstFive"><h5>{{person[3]}}/{{person[4]}}/{{person[5]}} {{person[1]}} </h5></div>
+                    {%endfor%}
+                    </div>
+                    </div>
+                    </div>
+                  </div>
+
+
+                {%endif%}
+                {% if s[7] == 0%}
+                  <div class="row">
+                      <div class="col colMatch-customL h3-customW" style="background-color: red;">
+                        <img src = "static/img/champion/{{s[6]}}.png", height = "100", width = "100" class = "champImgL">
+                        <h3 class = "display-4 custom-display">{{s[3]}}/{{s[4]}}/{{s[5]}}</h3>
+                        <button onclick="myFunction( {{loop.index}} )" class="btn btn-outline-primary btn-lg test">Stats</button>
+                      </div>
+                </div>
+                  <div class="row">
+                    <div class="col colMatch-customW h3-customW moreStats" id="moreStats_{{loop.index}}">
+                     <div class ="matchStyle">
+                      <div class="firstTeam">
+                    {%for person in totalMatchStats[loop.index-1][:5]%}
+                      <div class="col firstFive"><h5>{{person[1]}} {{person[3]}}/{{person[4]}}/{{person[5]}}</h5></div>
+                    {%endfor%}
+                    </div>
+                    <div class="secTeam">
+                    {%for person in totalMatchStats[loop.index-1][5:]%}
+                      <div class="col firstFive"><h5>{{person[5]}}/{{person[4]}}/{{person[3]}} {{person[1]}} </h5></div>
+                    {%endfor%}
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                {%endif%}
+              {%endfor%}
+            </div>
+
+    </div>
+</body>
+</html>

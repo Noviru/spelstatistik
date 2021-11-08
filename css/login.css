@@ -1,0 +1,19 @@
+
+.vertical-center{
+    width: 50%;
+    height: 70vh;
+    margin: auto;
+    margin-top: 10vh;
+
+
+}
+.form-control{
+    width:70%;
+}
+
+
+body{
+    background-image: url('img/login.jpg');
+
+
+}

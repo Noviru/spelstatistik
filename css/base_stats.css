@@ -1,0 +1,147 @@
+.navbar-custom {
+    background-color: #2AA3FA;
+
+}
+
+
+
+.navbar-custom .navbar-brand,
+        .navbar-custom .navbar-text {
+            color: black;
+        }
+
+.logout-custom{
+
+    margin: auto;
+}
+
+.img{
+    margin:auto;
+}
+
+.chart{
+  position: absolute;
+  left:0px;
+  margin:0;
+  top:0px;
+
+
+
+}
+
+.avgstats{
+  float:right;
+}
+
+.custom-display{
+  margin: 0;
+  float: left;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding: 100px;
+}
+
+.champImgW{
+  margin: 0;
+  float: left;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.champImgL{
+  margin: 0;
+  float: left;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+}
+
+.btn-custom{
+    position: absolute;
+    bottom: 0px;
+}
+
+.h3-customW{
+    padding: 35px 0;
+}
+
+
+.brandProfile-custom:hover{
+    background-color: #45B9F5;
+}
+.logout-custom:hover{
+    background-color: #45B9F5;
+}
+
+.image{
+    float: left;
+}
+.p-custom{
+    float:left;
+}
+
+.containerUsername-custom{
+    height: 30vh;
+    border-style: solid;
+    float: left;
+}
+.colWinrate-custom{
+    height: 70vh;
+    border-style: solid;
+}
+.containerLatestGames-custom{
+    height: 30vh;
+    float:right;
+    border-style: solid;
+}
+
+.colStats-custom{
+    height:70vh;
+
+}
+.colMatch-customL{
+    width:70%;
+    height:15vh;
+    border-style:solid;
+}
+
+.colMatch-customW{
+    width:70%;
+    height:15vh;
+    border-style:solid;
+}
+.test{
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+.championStats{
+
+}
+.champStats-img{
+  heigth:75px;
+  width:75px;
+
+}
+
+.moreStats{
+  display: none;
+  width:70%;
+  height:20vh;
+}
+
+.matchStyle{
+  display: flex;
+  justify-content:  space-between;
+}
+
+
+
+
